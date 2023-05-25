@@ -4,7 +4,7 @@ export default function Button(props) {
   return (
     <button
       onClick={() => {
-        props.onClick(props.id);
+        if (props.stop == false) props.onClick(props.id);
       }}
       id={props.id}
     >

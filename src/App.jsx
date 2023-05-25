@@ -11,6 +11,8 @@ export default function App() {
 
   const [turn, setTurn] = useState(0);
 
+  const [stop, setStop] = useState(false);
+
   function handleTurn(id) {
     setGameState((prevState) => {
       var currState = [];
@@ -31,11 +33,14 @@ export default function App() {
 
     setTurn(turn + 1);
 
-    const winner = checkWinner();
-    if (winner === null) console.log(winner);
+    const winner = checkWinner(id, turn % 2 == 0 ? "X" : "O");
+    console.log(winner);
+    if (winner === "X" || winner === "O") {
+      setStop(true);
+    }
   }
 
-  function checkWinner() {
+  function checkWinner(id, player) {
     var winCases = [
       [0, 1, 2],
       [3, 4, 5],
@@ -48,8 +53,7 @@ export default function App() {
     ];
 
     var currState = gameState[turn];
-    console.log("game states:");
-    console.log(gameState);
+    currState[id] = player;
     var winner = null;
 
     winCases.forEach((winCase) => {
@@ -67,8 +71,12 @@ export default function App() {
 
   return (
     <Container>
-      <Gamegrid gameState={gameState[turn]} onClick={handleTurn}></Gamegrid>
-      <Playerturn turn={turn % 2 == 0 ? "X" : "O"}></Playerturn>
+      <Gamegrid
+        gameState={gameState[turn]}
+        onClick={handleTurn}
+        stop={stop}
+      ></Gamegrid>
+      <Playerturn stop={stop} turn={turn % 2 == 0 ? "X" : "O"}></Playerturn>
     </Container>
   );
 }

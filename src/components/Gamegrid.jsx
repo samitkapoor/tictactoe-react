@@ -6,7 +6,7 @@ export default function GameGrid(props) {
   return (
     <div className="game-grid">
       {props.gameState.map((tileValue, index) => (
-        <Button id={index} onClick={props.onClick}>
+        <Button id={index} stop={props.stop} onClick={props.onClick}>
           {tileValue}
         </Button>
       ))}
