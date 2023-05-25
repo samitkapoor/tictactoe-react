@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import Button from "./components/Button";
-
-import "./styles/game-grid.css";
+import Container from "./components/Container";
+import Gamegrid from "./components/Gamegrid";
+import Playerturn from "./components/Playerturn";
 
 export default function App() {
   const [gameState, setGameState] = useState([
@@ -66,12 +66,9 @@ export default function App() {
   }
 
   return (
-    <div className="game-grid">
-      {gameState[turn].map((tileValue, index) => (
-        <Button id={index} onClick={handleTurn}>
-          {tileValue}
-        </Button>
-      ))}
-    </div>
+    <Container>
+      <Gamegrid gameState={gameState[turn]} onClick={handleTurn}></Gamegrid>
+      <Playerturn turn={turn % 2 == 0 ? "X" : "O"}></Playerturn>
+    </Container>
   );
 }
