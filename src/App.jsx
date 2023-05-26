@@ -3,6 +3,7 @@ import { useState } from "react";
 import Container from "./components/Container";
 import Gamegrid from "./components/Gamegrid";
 import Playerturn from "./components/Playerturn";
+import Resetbutton from "./components/Resetbutton";
 
 export default function App() {
   const [gameState, setGameState] = useState([
@@ -12,6 +13,13 @@ export default function App() {
   const [turn, setTurn] = useState(0);
 
   const [stop, setStop] = useState(false);
+
+  function handleReset(e) {
+    e.preventDefault();
+    setGameState([["", "", "", "", "", "", "", "", ""]]);
+    setTurn(0);
+    setStop(false);
+  }
 
   function handleTurn(id) {
     setGameState((prevState) => {
@@ -77,6 +85,7 @@ export default function App() {
         stop={stop}
       ></Gamegrid>
       <Playerturn stop={stop} turn={turn % 2 == 0 ? "X" : "O"}></Playerturn>
+      <Resetbutton onClick={handleReset}></Resetbutton>
     </Container>
   );
 }
